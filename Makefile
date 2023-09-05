@@ -15,3 +15,7 @@ down:
 # Composer
 composer:
 	docker-compose -f docker/docker-compose.yml run --rm php-fpm composer $(args)
+
+#
+test:
+	docker-compose -f docker/docker-compose.yml run --rm php-fpm ./vendor/bin/phpunit
