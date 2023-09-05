@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  app:
+    image: nginx
+    volumes:
+      - ./../docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./../docker/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./../:/var/www:rw
+    ports:
+      - ${NGINX_HOST_HTTP_PORT}:80
+    environment:
+      - NGINX_PORT=80
+    depends_on:
+      - php-fpm
+
+  php-fpm:
+    build:
+      context: ./../
+      dockerfile: ./docker/php-fpm/8.2/Dockerfile
+      args:
+        - PUID=${PUID}
+        - PGID=${PGID}
+    volumes:
+      - ./../:/var/www
+    extra_hosts:
+      - host.docker.internal:host-gateway
