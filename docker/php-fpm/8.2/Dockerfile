@@ -13,8 +13,12 @@ RUN apk update && apk upgrade && \
 
 # Install extensions
 RUN apk add --update linux-headers
-RUN pecl install xdebug-3.2.1 && \
-    docker-php-ext-enable xdebug
+
+ARG INSTALL_XDEBUG=false
+RUN if [ ${INSTALL_XDEBUG} = true ]; \
+    then \
+      pecl install xdebug-3.2.1 && docker-php-ext-enable xdebug; \
+    fi;
 
 COPY ./../docker/php-fpm/8.2/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
