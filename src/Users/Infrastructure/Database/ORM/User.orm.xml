@@ -3,8 +3,8 @@
         <id name="ulid" type="string" length="20">
             <generator strategy="NONE"/>
         </id>
-        <field name="email" type="string" length="50"/>
-        <field name="password" type="string" length="50"/>
+        <field name="email" length="50"/>
+        <field name="password" length="50"/>
         <field name="created_at" type="date_immutable"/>
     </entity>
 </doctrine-mapping>
