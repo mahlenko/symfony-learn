@@ -20,7 +20,11 @@ RUN if [ ${INSTALL_XDEBUG} = true ]; \
       pecl install xdebug-3.2.1 && docker-php-ext-enable xdebug; \
     fi;
 
-COPY ./../docker/php-fpm/8.2/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+COPY ./8.2/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+
+# Postgress
+RUN apk add --no-cache libpq-dev && \
+    docker-php-ext-install pdo_pgsql
 
 # Configure non-root user.
 ARG PUID=1000

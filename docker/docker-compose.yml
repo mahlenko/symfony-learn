@@ -16,8 +16,8 @@ services:
 
   php-fpm:
     build:
-      context: ./../
-      dockerfile: ./docker/php-fpm/8.2/Dockerfile
+      context: ./php-fpm
+      dockerfile: ./8.2/Dockerfile
       args:
         - PUID=${PUID}
         - PGID=${PGID}
@@ -26,3 +26,18 @@ services:
       - ./../:/var/www
     extra_hosts:
       - host.docker.internal:host-gateway
+
+  postgres:
+    container_name: postgres
+    build:
+      context: ./postgres
+    ports:
+      - ${POSTGRES_PORT}:5432
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
+      POSTGRES_USER: ${POSTGRES_USER:-app}
+    volumes:
+      - database_data:/var/lib/postgresql/data:rw
+volumes:
+  database_data:
