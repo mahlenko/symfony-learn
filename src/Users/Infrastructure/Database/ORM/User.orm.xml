@@ -5,6 +5,6 @@
         </id>
         <field name="email" length="50"/>
         <field name="password" length="50"/>
-        <field name="created_at" type="date_immutable"/>
+        <field name="created_at" type="datetime_immutable"/>
     </entity>
 </doctrine-mapping>
